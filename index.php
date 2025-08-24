@@ -88,37 +88,6 @@ if (!empty($selectedCategory)) {
     });
 }
 
-// Handle submit business form
-if ($_POST && isset($_POST['submit_business'])) {
-    $businessName = trim($_POST['business_name'] ?? '');
-    $category = trim($_POST['category'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-    $phone = trim($_POST['phone'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $website = trim($_POST['website'] ?? '');
-    $location = trim($_POST['location'] ?? '');
-
-    if (empty($businessName) || empty($category) || empty($description) || empty($phone) || empty($email) || empty($location)) {
-        $contactMessage = '<div class="alert error">Please fill in all required fields.</div>';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $contactMessage = '<div class="alert error">Please enter a valid email address.</div>';
-    } else {
-        // Simulate adding the business to the database (or array in this case)
-        $newBusiness = [
-            'id' => count($businesses) + 1,
-            'name' => $businessName,
-            'category' => $category,
-            'description' => $description,
-            'phone' => $phone,
-            'email' => $email,
-            'website' => $website,
-            'location' => $location
-        ];
-        $businesses[] = $newBusiness;
-
-        $contactMessage = '<div class="alert success">Thank you for submitting your business! It has been added to the directory.</div>';
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -186,39 +155,6 @@ if ($_POST && isset($_POST['submit_business'])) {
             <?php endif; ?>
         </div>
 
-        <form class="submit-business-form" method="POST">
-        <?php if (isset($contactMessage)) echo $contactMessage; ?>
-        <h2>Submit a Business</h2>
-        <div class="form-group">
-            <label for="business_name">Business Name *</label>
-            <input type="text" id="business_name" name="business_name" required>
-        </div>
-        <div class="form-group">
-            <label for="category">Category *</label>
-            <input type="text" id="category" name="category" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description *</label>
-            <textarea id="description" name="description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="text" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="website">Website</label>
-            <input type="url" id="website" name="website">
-        </div>
-        <div class="form-group">
-            <label for="location">Location *</label>
-            <input type="text" id="location" name="location" required>
-        </div>
-        <button type="submit" name="submit_business">Submit Business</button>
-</form>
     </main>
 
     <footer>
